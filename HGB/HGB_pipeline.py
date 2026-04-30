@@ -12,7 +12,8 @@ from sklearn.metrics import (
     confusion_matrix,
     roc_auc_score,
 )
-
+import matplotlib.pyplot as plt
+from sklearn.metrics import ConfusionMatrixDisplay
 
 # =========================================================
 # PATHS
@@ -22,6 +23,8 @@ print("SCRIPT STARTED")
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
+OUTPUT_DIR = ROOT / "HGB" / "_outputs"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 print("ROOT:", ROOT)
 print("DATA_DIR:", DATA_DIR)
@@ -128,11 +131,31 @@ def evaluate_model(model, X_test, y_test, split_name, feature_mode):
     print(f"Balanced accuracy: {bal_acc:.3f}")
     print(f"ROC-AUC:           {auc:.3f}")
 
+    cm = confusion_matrix(y_test, y_pred)
+
     print("\nConfusion matrix:")
-    print(confusion_matrix(y_test, y_pred))
+    print(cm)
 
     print("\nClassification report:")
     print(classification_report(y_test, y_pred, target_names=["Healthy", "Parkinson"]))
+
+    # Save confusion matrix plot
+    safe_split_name = split_name.replace(":", "").replace(" ", "_").replace("→", "to")
+
+    plot_name = f"confusion_matrix_{safe_split_name}_{feature_mode}.png"
+    plot_path = OUTPUT_DIR / plot_name
+
+    disp = ConfusionMatrixDisplay(
+        confusion_matrix=cm, display_labels=["Healthy", "Parkinson"]
+    )
+
+    disp.plot(values_format="d")
+    plt.title(f"{split_name} | {feature_mode}")
+    plt.tight_layout()
+    plt.savefig(plot_path, dpi=300)
+    plt.close()
+
+    print(f"Saved confusion matrix plot to: {plot_path}")
 
     return {
         "split": split_name,
@@ -228,3 +251,6 @@ if __name__ == "__main__":
 
     print_section("FINAL COMPARISON")
     print(results_df.to_string(index=False))
+
+results_df.to_csv(OUTPUT_DIR / "hgb_results.csv", index=False)
+print(f"\nSaved final results to: {OUTPUT_DIR / 'hgb_results.csv'}")

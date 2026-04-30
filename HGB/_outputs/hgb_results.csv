@@ -1,0 +1,5 @@
+split,feature_mode,accuracy,balanced_accuracy,roc_auc
+Split A: train_a → test_a,all,0.9069767441860465,0.8333333333333333,0.9086021505376345
+Split A: train_a → test_a,jitter_shimmer,0.8604651162790697,0.75,0.8118279569892473
+Split B: train_b → test_b,all,0.8536585365853658,0.75,0.7844827586206897
+Split B: train_b → test_b,jitter_shimmer,0.8048780487804879,0.6666666666666666,0.7873563218390806
