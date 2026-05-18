@@ -1,0 +1,5 @@
+model,split,feature_set,test_accuracy,test_balanced_accuracy,test_precision,test_recall,test_f1,test_roc_auc,test_pr_auc,cv_best_balanced_accuracy,top_1_feature,top_2_feature,top_3_feature
+HGB,split_a_imputed,all_features,0.8837209302325582,0.7916666666666667,0.8611111111111112,1.0,0.9253731343283582,0.803763440860215,0.843629989737935,0.868271221532091,spread1,MDVP:Fhi(Hz),spread2
+HGB,split_a_imputed,jitter_shimmer_only,0.8604651162790697,0.75,0.8378378378378378,1.0,0.9117647058823529,0.7419354838709677,0.8844487260916591,0.7110507246376812,MDVP:Jitter(Abs),Shimmer:APQ5,Jitter:DDP
+HGB,split_b_deleted_missing,all_features,0.8536585365853658,0.75,0.8285714285714286,1.0,0.90625,0.8879310344827587,0.9378360173845883,0.88437794089968,spread1,MDVP:Fo(Hz),MDVP:Flo(Hz)
+HGB,split_b_deleted_missing,jitter_shimmer_only,0.8536585365853658,0.75,0.8285714285714286,1.0,0.90625,0.7442528735632185,0.8562540827195259,0.7163937511763597,MDVP:Jitter(Abs),Shimmer:APQ5,MDVP:Jitter(%)
